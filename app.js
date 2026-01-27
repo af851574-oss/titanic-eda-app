@@ -30,7 +30,7 @@ const DATA_CONFIG = {
         categorical: ['Sex', 'Embarked'],
         identifier: 'PassengerId' // Will be excluded from analysis
     },
-    SOURCE_COL: 'DataSource' // Added column to distinguish train/test
+    SOURCE_COL: 'source' // Added column to distinguish train/test (matching Kaggle convention)
 };
 
 // =========================
@@ -169,10 +169,10 @@ function mergeDatasets(train, test) {
         [DATA_CONFIG.SOURCE_COL]: 'train'
     }));
 
-    // Add source column to test (and add Survived as null)
+    // Add source column to test
+    // NOTE: test.csv does not have 'Survived' column - we don't add it
     const testWithSource = test.map(row => ({
         ...row,
-        [DATA_CONFIG.TARGET]: null,
         [DATA_CONFIG.SOURCE_COL]: 'test'
     }));
 
